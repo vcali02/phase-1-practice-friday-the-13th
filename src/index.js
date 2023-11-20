@@ -11,6 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const detailWatched = document.querySelector("#watched")
     const detailBloodAm = document.querySelector("#amount")
 
+    const bloodAmBox = document.querySelector("#blood-amount")
+    const bloodForm = document.querySelector("#blood-form")
+
+
     
     
     
@@ -57,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         detailBloodAm.textContent = movie.blood_amount
         detailWatched.textContent = movie.watched ? "watched" : "unwatched"
 
+//4 watched button toggles
         detailWatched.addEventListener("click" , (e) => {
             e.preventDefault()
 
@@ -64,12 +69,26 @@ document.addEventListener("DOMContentLoaded", () => {
             detailWatched.textContent = movie.watched ? "watched" : "unwatched"
 
         })
+        addBlood(movie)
         
     })
 
 
 
+//5 add blood
+    function addBlood(movie){
+        bloodAmBox.addEventListener("change", (e) => {
+            e.preventDefault()
+            movie.blood_amount += Number(e.target.value)
+            
+            bloodForm.addEventListener("submit", (e) => {
+                e.preventDefault()
+                detailBloodAm.textContent = movie.blood_amount
+                e.target["blood-amount"].value= ""
+            })
+        })
 
+    }
 
 
 
@@ -214,13 +233,18 @@ document.addEventListener("DOMContentLoaded", () => {
 //     })
 // //BLOOD FORM
 // function addBlood(movie){ //the name of my instructions is ""addBlood" and I will give you something to apply these instructions to by putting it in your ()
+
 //     bloodAmountBox.addEventListener("change", (e) => { //HEY bloodAmountBox, I need you to listen for a CHANGE and apply the following instructions
 //         e. preventDefault()
-//         movie.blood_amount += Number(e.target.value) //take the object.key value that we are trying to affect, and add whatever we insert into the target (the input box). wince we are applying this event TO this box, it is our event target, or e.target. but that's not really what we want, we want the e.target VALUE, so: e.target.value
-//         //now that we know this change is going to happen, we'll need to complete this by giving this action a home
+//         movie.blood_amount += Number(e.target.value) //take the object.key value that we are trying to affect, and add whatever we insert into the target (the input box). since we are applying this event TO this box, it is our event target, or e.target. but that's not really what we want, we want the e.target VALUE, so: e.target.value
+//        
+            //now that we know this change is going to happen, we'll need to complete this by giving this action a home
+
+            
 //         bloodForm.addEventListener("submit", (e) => {//HEY bloodForm, I need you to keep an ear out for a SUBMISSION,and when you hear it, I need you to apply the following instructions
 //             e.preventDefault()
 //             detailBloodAmount.textContent= movie.blood_amount //where did you want this change to be seen? grab that. and set the textContent to the value you want. here, the object.key because up top, we told it that it may be affected by a change, and if it is, is needs to apply that change. so here, referencing the object.key will give us the total value BECAUSE of the instructions we gave it above
+
 //             e.target["blood-amount"].value= "" //this is fancy, and just says HEY target area, when you're done with the order of operations, reset yourself.
 
 
