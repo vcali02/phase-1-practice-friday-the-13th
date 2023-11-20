@@ -56,6 +56,14 @@ document.addEventListener("DOMContentLoaded", () => {
         detailDescription.textContent = movie.description
         detailBloodAm.textContent = movie.blood_amount
         detailWatched.textContent = movie.watched ? "watched" : "unwatched"
+
+        detailWatched.addEventListener("click" , (e) => {
+            e.preventDefault()
+
+            movie.watched =! movie.watched
+            detailWatched.textContent = movie.watched ? "watched" : "unwatched"
+
+        })
         
     })
 
