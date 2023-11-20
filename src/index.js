@@ -2,26 +2,62 @@
 document.addEventListener("DOMContentLoaded", () => {
     //DOMContentLoaded START
 
-//1 take image, and add to movie-list nav element
-
+    //CONST
     const movieListNav = document.querySelector("#movie-list")
+    const detailImg = document.querySelector("#detail-image")
+    const detailTitle = document.querySelector("#title")
+    const detailYrReleased = document.querySelector("#year-released")
+    const detailDescription = document.querySelector("#description")
+    const detailWatched = document.querySelector("#watched")
+    const detailBloodAm = document.querySelector("#amount")
 
-
-
-
-    //fetch images
+    
+    
+    
+    
+//1 take image, and add to movie-list nav element
+    //fetch data
     fetch("http://localhost:3000/movies")
+    //GET the data
     .then(res => res.json())
+    //then promises to return the data into json data
     .then(movies => {
         movies.map(movies => {
             const movieListImg = document.createElement("img")
             movieListImg.src = movies.image
             movieListNav.appendChild(movieListImg)
+            
+            //3 CLICK list to FEATURE
+                movieListImg.addEventListener("click", (e) => {
+                    e.preventDefault()
+                    detailImg.src = movies.image
+                    detailTitle.textContent = movies.title
+                    detailYrReleased.textContent = movies.release_year
+                    detailDescription.textContent = movies.description
+                    detailBloodAm.textContent = movies.blood_amount
+                    detailWatched.textContent = movies.watched ? "watched" : "unwatched"
+            
+                })
         })
+        
     })
 
 
 
+//2 movie details as featured movie
+    
+    //fetch first movie details
+    fetch("http://localhost:3000/movies/1")
+    .then(res => res.json())
+    .then(movie => {
+        detailImg.src = movie.image
+        detailTitle.textContent = movie.title
+        detailYrReleased.textContent = movie.release_year
+        detailDescription.textContent = movie.description
+        detailBloodAm.textContent = movie.blood_amount
+        detailWatched.textContent = movie.watched ? "watched" : "unwatched"
+        
+    })
 
 
 
